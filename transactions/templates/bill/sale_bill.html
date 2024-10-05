@@ -1,0 +1,154 @@
+{% extends bill_base %}
+{% load static %}
+
+
+{% block title %} Sale Bill No : {{ bill.billno }}{% endblock title %}
+
+
+{% block content %}
+
+    
+    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">Sales Bill No : {{ bill.billno }}</div>
+
+    <!-- <br><br> -->
+
+    <form method="post">
+    {% csrf_token %}
+
+        <div class="bg">
+
+            <br>
+
+            <div id="printArea" class="bg">
+
+                <table class="outer-box inner-box" style="width: 840px; margin-left: auto; margin-right: auto;">
+                    <tbody>
+                    
+                        <tr style="height: 1px;">
+                            <td> <p style="text-align: center;"> </p> </td>
+                        </tr>
+                    
+                        <tr style="text-align: center;">
+                            <td >
+                                <span style="font-size: 350%;">Understanding Gift Shop</span> <br>
+                                <span style="font-size: 120%; font-weight: bold;">Dealers in : Christian Books</span> <br>
+                                <span style="font-weight: bold;">Address :</span> Christian Village <br>Accra, Ghana<br>
+                               
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td>
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%; font-weight: bold;">&nbsp;Name of Buyer</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;Sales No.</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.billno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%;">&nbsp;{{ bill.name }}</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;Date</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.time.date }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" colspan="3">&nbsp;Sales Agent : {{ bill.sales_agent }}</td>
+                                    </tr>
+                        </tr>
+                        <tr>
+                                   
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 5%; font-weight: bold; text-align: center;">&nbsp;No.</td>
+                                        <td class="inner-box" style="width: 30%; font-weight: bold; text-align: center;">Items</td>
+                                      
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Quantity</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Rate Per Item</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">Amount (GH₵)</td>
+                               
+                                    </tr>
+                                    {% for item in items %}
+                                        <tr style="height: auto;">
+                                            <td class="inner-box" style="width: 5%;">&nbsp; {{ forloop.counter }}</td>
+                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ item.stock.name }}</td>
+                                     
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.quantity }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.perprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.totalprice }}</td>
+                   
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box inner-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 5%;"></td>
+                                        <td class="inner-box" style="width: 30%;"></td>
+                                        <td class="inner-box" style="width: 12%;"></td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: right;">Total:</td>
+                                        <td class="inner-box" style="width: 12%; text-align: right;">&nbsp;GH₵ {{ billdetails.total }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: right;">
+                                <span style="font-weight: bold;"> <br><br><br> Signature</span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align: center;">
+                                <!-- FINAL TEXT -->
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!-- <br><br> -->
+
+        </div>
+
+        <br><br>
+
+        <div class="wrapper">
+            <button class="center btn btn-primary" onclick="printpage('printArea')">Save/Print</button>
+            
+            <a href="{% url 'sales-list' %}" class="btn center btn-secondary">Go Back</a>
+        </div>
+    
+    </form>
+    
+    <script>
+        function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }       
+        </script>
+
+{% endblock %}
