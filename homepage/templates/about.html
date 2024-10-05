@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+{% block title %} About {% endblock title %}
+
+
+{% block content %} 
+    
+    {% if not user.is_authenticated  %}
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Go Back</a>
+    {% endif %}    
+    
+    <div class="align-middle" style="color: #4caf50; font-style: bold; font-size: 3rem;">Lovereign Bible Church</div>
+  
+    <br><br>
+
+    <div class="align-middle"> 
+        <h2 style="color:#a77708">| Understanding Gift Shop|</h3> <br>
+                <p>
+                    The Understanding Gift Shop Management App is a user-friendly application designed to streamline <br>
+                    the shop management. With its organization and calculation features, it makes it easier to track <br>
+                    sales and monitor available items in stock.<br>
+                </p>
+                <hr class="yellow-line">
+                <p>
+                    <strong>Site Functionality:</strong><br>
+                    The app provides features for stock management, sales management, and a dashboard for an <br>
+                    overview of available stock levels and recent sales transactions.
+                </p>
+                <details>
+                    <summary>Stock Management</summary>
+                    <p>1. Add new stocks - Limited to admins<br>
+                       2. View existing Stocks<br>
+                       3. Edit stock information - Limited to admins</p>
+                </details>
+                
+                <details>
+                    <summary>Sales Management</summary>
+                    <p>1. Enter new sales transactions<br>
+                       2. generate receipts for each sale<br>
+                       3. Save receipts to the records folder on the desktop using the print option</p>
+                </details>
+                <hr class="yellow-line">
+                <p>
+                
+                </p>
+                <br>
+                <hr class="yellow-line">
+                <p>
+                    UGS App <br>
+                    Copyright © 2024 NMJlessons <br>
+                    All rights reserved. NMJlessons. nmjlessons@gmail.com<br>
+                  
+                </p>
+        <br>
+     </div>
+
+{% endblock content %}
